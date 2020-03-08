@@ -1,0 +1,148 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Swagger REST Article
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+basePath: "/games"
+
+# Paths supported by the server application
+paths:
+  /test:
+    get:
+      operationId: game.test
+      description: Testing
+
+      responses:
+        200:
+          description: Test OK
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+  /:
+    post:
+      operationId: game.start
+      tags:
+        - Game
+      summary: Create a Boggle game
+      description: Create a Boggle game
+
+      parameters:
+        - name: input
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - duration
+              - random
+            properties:
+              duration:
+                type: integer
+              random:
+                type: boolean
+              board:
+                type: string
+
+      responses:
+        201:
+          description: Game created successfully
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              token:
+                type: string
+              duration:
+                type: integer
+              board:
+                type: string
+        # TODO: game not created successfully
+  /{id}:
+    get:
+      operationId: game.show
+      tags:
+        - Game
+      summary: Show Boggle game
+      description: Show Boggle game using id
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+
+      responses:
+        200:
+          description: Found game
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              token:
+                type: string
+              duration:
+                type: integer
+              board:
+                type: string
+              time_left:
+                type: integer
+              points:
+                type: integer
+        # TODO: game not found
+    put:
+      operationId: game.submit_word
+      tags:
+        - Game
+      summary: Submit word
+      description: Submit word
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+        - name: input
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - id
+              - token
+              - word
+            properties:
+              id:
+                type: integer
+              token:
+                type: string
+              word:
+                type: string
+
+      responses:
+        200:
+          description: Successfully submitted game
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+              token:
+                type: string
+              duration:
+                type: integer
+              board:
+                type: string
+              time_left:
+                type: integer
+              points:
+                type: integer
+              #TODO: game not found
