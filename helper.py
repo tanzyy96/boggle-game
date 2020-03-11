@@ -1,5 +1,6 @@
 import random, string, datetime
 from collections import defaultdict
+from flask import jsonify
 
 local_id = 0
 
@@ -164,5 +165,12 @@ def get_word_points(word):
         return 5
     else:
         return 11
+
+# Helper function to return a response with status code and CORS headers
+def prepare_response(res_object, status_code):
+    response = jsonify(res_object)
+    response.headers.set('Access-Control-Allow-Origin', '*')
+    response.headers.set('Access-Control-Allow-Methods', 'GET, POST')
+    return response, status_code
 
     

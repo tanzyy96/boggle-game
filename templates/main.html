@@ -1,9 +1,23 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Welcome to Boggle</title>
+        <title>boggle.io</title>
+        <link rel="stylesheet" href="">
     </head>
     <body>
-        <h1>Welcome to my Boggle game</h1>
+        <h1>Boggle gamers</h1>
+        <form>
+            Duration:
+            <input type="number" name="duration" id="duration"><br>
+            Board:
+            <input type="text" name="board" id="board"><br>
+            Random:
+            <input type="checkbox" name="random" id="random"><br>
+
+            <button onclick="createGame()">Create</button>
+        </form>
+
+
+        <script src="../static/main.js" async="async" defer="defer"></script>
     </body>
 </html>
