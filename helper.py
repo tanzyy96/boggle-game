@@ -165,4 +165,11 @@ def get_word_points(word):
     else:
         return 11
 
+def update_used_words(id, word):
+    """ Update dict of used words """
+    game = get_game(id)
+    game["wordsUsed"].append(word)
+
+
+
     

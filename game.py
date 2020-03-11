@@ -1,7 +1,7 @@
 import datetime
 import string
 import random
-from helper import create_new_game, check_valid_word, check_board_for_word, generate_board, generate_id, generate_token, get_game, get_time_left, get_word_points
+from helper import check_board_for_word, check_valid_word, create_new_game, generate_board, generate_id, generate_token, get_game, get_time_left, get_word_points, update_used_words
 
 def test():
     return {"result": "testok"}, 200
@@ -122,7 +122,10 @@ def submit_word(id, input):
     # 4. Count points
     points = points + get_word_points(word)
 
-    # 5. Update points
+    # 5. Add to used words
+    update_used_words(id, word)
+
+    # 6. Update points
     result["points"] = points
     return result, 200
 
