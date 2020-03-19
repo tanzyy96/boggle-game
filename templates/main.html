@@ -1,23 +1,51 @@
 <!DOCTYPE html>
 <html>
+
     <head>
-        <title>boggle.io</title>
-        <link rel="stylesheet" href="">
+        <title>
+            boggle.io</title>
+        <link rel="stylesheet" href="../static/main.css">
     </head>
+
     <body>
-        <h1>Boggle gamers</h1>
-        <form>
-            Duration:
-            <input type="number" name="duration" id="duration"><br>
-            Board:
-            <input type="text" name="board" id="board"><br>
-            Random:
-            <input type="checkbox" name="random" id="random"><br>
-
-            <button onclick="createGame()">Create</button>
-        </form>
-
-
+        <h1>
+            Boggle gamers
+        </h1>
+        <div>
+            <h2>CREATE GAME</h2>
+            Duration :
+            <input type="number" name="duration" id="duration">
+            <br>
+            Board :
+            <input type="text" name="board" id="board">
+            <br>
+            Random :
+            <input type="checkbox" name="random" id="random">
+            <br>
+            <button onclick="createGame()">
+                Create
+            </button><br>
+            ID:
+            <text id="resp_id"></text><br>
+            TOKEN:
+            <text id="resp_token"></text><br>
+        </div>
+        <div>
+            <h2>GET GAME</h2>
+            ID:
+            <input type="integer" name="id" id="id"><br>
+            <button onclick="getGame()">Load</button>
+        </div>
+        <div>
+            <h2>SUBMIT WORD</h2>
+            TOKEN:
+            <input type="text" name="token" id="token"><br>
+            WORD:
+            <input type="text" name="word" id="word"><br>
+            <button onclick="submitWord()">Submit</button>
+        </div>
+        <br>
         <script src="../static/main.js" async="async" defer="defer"></script>
     </body>
+
 </html>

@@ -1,7 +1,7 @@
 import datetime
 import string
 import random
-from helper import create_new_game, check_valid_word, check_board_for_word, generate_board, generate_id, generate_token, get_game, get_time_left, get_word_points, prepare_response
+from helper import add_used_word, check_board_for_word, check_valid_word, create_new_game, generate_board, generate_id, generate_token, get_game, get_time_left, get_word_points, prepare_response, update_points
 
 def test():
     return prepare_response({"result": "testok"}, 200)
@@ -90,7 +90,7 @@ def submit_word(id, input):
     game = get_game(id)
     if (not game) or (game["token"] != token):
         print("Incorrect id or token")
-        return prepare_response("Non-matching game IDs, please check your input.", 406)
+        return prepare_response("Non-matching game IDs or tokens, please check your input.", 406)
 
     time_left = get_time_left(game["end_time"])
     points = game["points"]
@@ -107,22 +107,20 @@ def submit_word(id, input):
     if time_left == 0:
         return prepare_response("This game has run out of time.", 406)
 
-    # 1. Check word if valid in dict
     if not check_valid_word(word):
         return prepare_response("The word does not exist in the dictionary.", 406)
 
-    # 2. Check word if used
     if word in game["wordsUsed"]:
         return prepare_response("This word has already been used.", 406)
 
-    # 3. Check word if available in board
     if not check_board_for_word(game['board'], word):
         return prepare_response("Word not found", 406)
 
-    # 4. Count points
     points = points + get_word_points(word)
 
-    # 5. Update points
+    add_used_word(id, word)
+    update_points(id, points)
+
     result["points"] = points
     return prepare_response(result, 200)
 
@@ -150,7 +148,7 @@ def show(id):
     """
     game = get_game(id)
     if not game:
-        return prepare_response(None, 403)
+        return prepare_response("Game not found", 403)
     result = {
         "id": id,
         "token": game["token"],

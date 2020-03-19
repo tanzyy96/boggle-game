@@ -173,4 +173,13 @@ def prepare_response(res_object, status_code):
     response.headers.set('Access-Control-Allow-Methods', 'GET, POST')
     return response, status_code
 
+def add_used_word(id, word):
+    game = get_game(id)
+    game["wordsUsed"].append(word)
+
+def update_points(id, points):
+    game = get_game(id)
+    game["points"] = points;
+
+
     
